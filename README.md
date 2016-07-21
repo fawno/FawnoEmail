@@ -18,4 +18,9 @@ App::uses('FawnoEmail', 'Lib/Network/Email');
 In template:
 ```php
 <img src="cid:/full/path/image">
+<img src="cid:///full/path/image">
+<img src="file:/full/path/image">
+<img src="file:///full/path/image">
+echo $this->Html->image('cid:///full/path/image');
+echo $this->Html->image('file:///full/path/image');
 ```
