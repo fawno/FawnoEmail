@@ -15,9 +15,12 @@
 					$img = array_unique($img[2]);
 					foreach ($img as $file) if (is_file($file)) {
 						$cid = sha1($file);
-						$this->addAttachments(array('cid:' . $cid => array('file' => $file, 'mimetype' => mime_content_type($file), 'contentId' => $cid)));
-						$render['html'] = str_replace($file, $cid, $render['html']);
+						$images['cid:' . $cid] = array('file' => $file, 'mimetype' => mime_content_type($file), 'contentId' => $cid);
+						$files['cid:' . $cid] = $file;
+						$cids['cid:' . $cid] = $cid;
 					}
+					$this->addAttachments($images);
+					$render['html'] = str_replace($files, $cids, $render['html']);
 				}
 			}
 
