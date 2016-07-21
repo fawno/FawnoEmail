@@ -10,6 +10,7 @@
 			$render = parent::_renderTemplates($content);
 
 			if (!empty($render['html'])) {
+				$render['html'] = str_replace(array('file:', 'file://', 'cid://'), 'cid:', $render['html']);
 				if (preg_match_all('~(["\'])cid:([^\1]+)\1~iU', $render['html'], $img)) {
 					$img = array_unique($img[2]);
 					foreach ($img as $file) if (is_file($file)) {
