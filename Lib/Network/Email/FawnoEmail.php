@@ -7,11 +7,11 @@
 				$this->_viewVars['subject'] = $this->_subject;
 			}
 
-			$render = parent::_renderTemplates($content);
+			$rendered = parent::_renderTemplates($content);
 
-			if (!empty($render['html'])) {
-				$render['html'] = str_replace(array('file:', 'file://', 'cid://'), 'cid:', $render['html']);
-				if (preg_match_all('~(["\'])cid:([^\1]+)\1~iU', $render['html'], $img)) {
+			if (!empty($rendered['html'])) {
+				$rendered['html'] = str_replace(array('file:', 'file://', 'cid://'), 'cid:', $rendered['html']);
+				if (preg_match_all('~(["\'])cid:([^\1]+)\1~iU', $rendered['html'], $img)) {
 					$img = array_unique($img[2]);
 					foreach ($img as $file) if (is_file($file)) {
 						$cid = sha1($file);
@@ -20,14 +20,14 @@
 						$cids['cid:' . $cid] = $cid;
 					}
 					$this->addAttachments($images);
-					$render['html'] = str_replace($files, $cids, $render['html']);
+					$rendered['html'] = str_replace($files, $cids, $rendered['html']);
 				}
 			}
 
-			return $render;
+			return $rendered;
 		}
 
-		public function attachments($attachments = null) {
+		public function attachments ($attachments = null) {
 			if ($attachments === null) {
 				return $this->_attachments;
 			}
