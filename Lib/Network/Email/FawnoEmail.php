@@ -10,16 +10,18 @@
 			$rendered = parent::_renderTemplates($content);
 
 			if (!empty($rendered['html'])) {
-				$rendered['html'] = str_replace(array('file:', 'file://', 'cid://'), 'cid:', $rendered['html']);
-				if (preg_match_all('~(["\'])cid:([^\1]+)\1~iU', $rendered['html'], $img)) {
+				$rendered['html'] = preg_replace('~(img\s.*src\s*=\s*["\'])(file://|file:|cid://|cid:)~iU', '$1cid:', $rendered['html']);
+				if (preg_match_all('~img\s[^>]*src\s*=\s*(["\'])cid:([^\1]+)\1~iU', $rendered['html'], $img)) {
 					$img = array_unique($img[2]);
-					foreach ($img as $file) if (is_file($file)) {
+					foreach ($img as $file) {
+						$fileName = $file;
+						$file = realpath($file);
+						if (!is_file($file)) throw new SocketException(__d('cake_dev', 'File not found: "%s"', $fileName));
 						$cid = sha1($file);
-						$images['cid:' . $cid] = array('file' => $file, 'contentId' => $cid);
-						$files['cid:' . $cid] = $file;
+						$this->_attachments['cid:' . $cid] = array('file' => $file, 'contentId' => $cid, 'mimetype' => mime_content_type($file));
+						$files['cid:' . $cid] = $fileName;
 						$cids['cid:' . $cid] = $cid;
 					}
-					$this->addAttachments($images);
 					$rendered['html'] = str_replace($files, $cids, $rendered['html']);
 				}
 			}
@@ -47,7 +49,7 @@
 				} else {
 					$fileName = $fileInfo['file'];
 					$fileInfo['file'] = realpath($fileInfo['file']);
-					if ($fileInfo['file'] === false || !file_exists($fileInfo['file'])) {
+					if (!is_file($fileInfo['file'])) {
 						throw new SocketException(__d('cake_dev', 'File not found: "%s"', $fileName));
 					}
 					if (is_int($name)) {
@@ -55,11 +57,7 @@
 					}
 				}
 				if (!isset($fileInfo['mimetype'])) {
-					if (function_exists('mime_content_type')) {
-						$fileInfo['mimetype'] = mime_content_type($fileInfo['file']);
-					} else {
-						$fileInfo['mimetype'] = 'application/octet-stream';
-					}
+					$fileInfo['mimetype'] = mime_content_type($fileInfo['file']);
 				}
 				$attach[$name] = $fileInfo;
 			}
