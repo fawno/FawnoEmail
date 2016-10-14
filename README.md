@@ -8,7 +8,7 @@ Install via composer
 
 Since v3, CakePHP uses [composer](http://getcomposer.org), the easiest way to set up is by either running
 ```
-  composer require fawno/fawnoemail dev-CakePHP-3
+  composer require fawno/fawnoemail
 ```
 
 Usage
