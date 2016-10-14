@@ -1,28 +1,22 @@
 {
-    "name": "sandreu/cake-sentry",
-    "version": "0.2.0",
-    "type": "cakephp-plugin",
-    "description": "Sentry error handler plugin for CakePHP2",
-    "keywords": ["Sentry", "CakePHP", "Log", "Error", "Exception"],
-    "extra": {
-        "installer-name": "Sentry"
-    },
-    "require": {
-        "php": ">=5.2.8",
-        "raven/raven": "~0.10",
-        "composer/installers": "*"
-    },
-    "license": "BSD 3-Clause",
+    "name": "fawno/fawnoemail",
+    "version": "2.0.1",
+    "description": "FawnoEmail for CakePHP 3",
+    "license": "MIT",
     "authors": [
         {
-            "name": "Sandreu",
-            "email": "deadyman@free.fr",
-            "role": "Developer"
+            "name": "Fawno",
+            "homepage": "https://github.com/fawno/FawnoEmail/graphs/contributors"
         }
     ],
-    "homepage": "https://github.com/Sandreu/cake-sentry",
     "support": {
-        "issues": "https://github.com/Sandreu/cake-sentry/issues"
+        "issues": "https://github.com/fawno/FawnoEmail/issues",
+        "source": "https://github.com/fawno/FawnoEmail"
     },
-    "minimum-stability": "stable"
+    "require": {
+        "cakephp/cakephp": ">=2.8.0"
+    },
+    "extra": {
+        "installer-name": "Fawno"
+    }
 }
