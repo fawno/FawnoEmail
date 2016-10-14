@@ -6,13 +6,13 @@ Extend Network/Email/CakeEmail allowing image inline in templates.
 Install
 -------
 
-Copy content of Lib folder into your app/Lib.
+Copy content of vendor folder into your app.
 
 Usage
 -----
 Whenever you need to send email, ensure this class is loaded:
 ```php
-  App::uses('FawnoEmail', 'Lib/Network/Email');
+  use Fawno\Mailer\FawnoEmail;
 ```
 Use the class as normal CakeEmail:
 ```php
