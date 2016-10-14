@@ -6,15 +6,9 @@ Extend Network/Email/CakeEmail allowing image inline in templates.
 Install via composer
 --------------------
 
-Since v3, CakePHP uses [composer](http://getcomposer.org), the easiest way to set up the Bootstrap helpers is by either running
+Since v3, CakePHP uses [composer](http://getcomposer.org), the easiest way to set up is by either running
 ```
-  composer require fawno/fawnoemail
-```
-or adding the following to your composer.json and run composer update:
-```composer.json
-  "require": {
-    "fawno/fawnoemail": "~1.0"
-  }
+  composer require fawno/fawnoemail dev-CakePHP-3
 ```
 
 Usage
