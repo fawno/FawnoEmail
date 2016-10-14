@@ -14,6 +14,7 @@
         "source": "https://github.com/fawno/FawnoEmail"
     },
     "require": {
+        "cakephp/cakephp": "1.0.0"
     },
     "extra": {
         "installer-name": "Fawno"
