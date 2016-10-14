@@ -8,6 +8,17 @@ Install
 
 Copy content of Lib folder into your app/Lib.
 
+Install via composer
+--------------------
+
+If uses [composer](http://getcomposer.org), running
+```
+  composer require fawno/fawnoemail dev-CakePHP-2
+```
+And add in app/Config/bootstrap.php
+```php
+App::build(array('Lib', array(ROOT . '/vendors/fawno/fawnoemail/')));
+```
 Usage
 -----
 Whenever you need to send email, ensure this class is loaded:
