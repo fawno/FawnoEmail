@@ -1,15 +1,21 @@
 {
     "name": "fawno/fawnoemail",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "FawnoEmail for CakePHP 3",
     "license": "MIT",
     "authors": [
         {
             "name": "Fawno",
-            "email": "admin@fawno.com"
+            "homepage": "https://github.com/fawno"
         }
     ],
-    "require": {},
+    "support": {
+        "issues": "https://github.com/fawno/FawnoEmail/issues",
+        "source": "https://github.com/fawno/FawnoEmail"
+    },
+    "require": {
+        "cakephp/cakephp": ">=3.2.3"
+    },
     "autoload": {
         "psr-4": {
             "Fawno\\Mailer\\": "src"
