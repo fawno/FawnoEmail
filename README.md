@@ -17,7 +17,7 @@ If uses [composer](http://getcomposer.org), running
 ```
 And add in app/Config/bootstrap.php
 ```php
-App::build(array('Lib', array(ROOT . '/vendors/fawno/fawnoemail/')));
+  App::build(array('Lib', array(ROOT . '/vendors/fawno/fawnoemail/')));
 ```
 Usage
 -----
