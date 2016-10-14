@@ -1,6 +1,6 @@
 # FawnoEmail
 
-Extend Network/Email/CakeEmail allowing image inline in templates.
+Extend Cake\Mailer\Email allowing image inline in templates.
 
 
 Install via composer
