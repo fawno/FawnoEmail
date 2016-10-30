@@ -10,19 +10,22 @@
 			$rendered = parent::_renderTemplates($content);
 
 			if (!empty($rendered['html'])) {
-				$rendered['html'] = preg_replace('~(img\s.*src\s*=\s*["\'])(file://|file:|cid://|cid:)~iU', '$1cid:', $rendered['html']);
-				if (preg_match_all('~img\s[^>]*src\s*=\s*(["\'])cid:([^\1]+)\1~iU', $rendered['html'], $img)) {
-					$img = array_unique($img[2]);
-					foreach ($img as $file) {
-						$fileName = $file;
-						$file = realpath($file);
-						if (!is_file($file)) throw new SocketException(__d('cake_dev', 'File not found: "%s"', $fileName));
+				preg_match_all('~<img[^>]*src\s*=\s*(["\'])(cid://|file://|cid:|file:)([^\1]+)\1~iU', serialize($this->viewVars), $userFiles);
+				$userFiles = array_unique($userFiles[3]);
+				preg_match_all('~<img[^>]*src\s*=\s*(["\'])(cid://|file://|cid:|file:)([^\1]+)\1~iU', $rendered['html'], $embebFiles);
+				$embebFiles = array_unique($embebFiles[3]);
+				$embebFiles = array_diff($embebFiles, $userFiles);
+				foreach ($embebFiles as $file) {
+					if (is_file($file)) {
 						$cid = sha1($file);
-						$this->_attachments['cid:' . $cid] = array('file' => $file, 'contentId' => $cid, 'mimetype' => mime_content_type($file));
-						$files['cid:' . $cid] = $fileName;
-						$cids['cid:' . $cid] = $cid;
+						$images['cid:' . $cid] = ['file' => $file, 'contentId' => $cid];
+						$files['cid:' . $cid] = '~(<img[^>]*src\s*=\s*)(["\'])(cid://|file://|cid:|file:)' . $file . '\2~iU';
+						$cids['cid:' . $cid] = '\1\2cid:' . $cid . '\2';
 					}
-					$rendered['html'] = str_replace($files, $cids, $rendered['html']);
+				}
+				if (!empty($images)) {
+					$this->addAttachments($images);
+					$rendered['html'] = preg_replace($files, $cids, $rendered['html']);
 				}
 			}
 
