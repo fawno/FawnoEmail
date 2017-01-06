@@ -1,3 +1,6 @@
+[![Package at Packagist](https://img.shields.io/packagist/v/fawno/FawnoEmail.svg?style=plastic)](https://packagist.org/packages/fawno/fawnoemail)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=plastic)](https://raw.githubusercontent.com/fawno/FawnoEmail/CakePHP-3/LICENSE)
+
 # FawnoEmail
 
 Extend Cake\Mailer\Email allowing image inline in templates.
