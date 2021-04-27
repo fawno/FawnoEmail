@@ -1,6 +1,6 @@
 {
     "name": "fawno/fawnoemail",
-    "version": "2.0.6",
+    "version": "2.0.7",
     "description": "FawnoEmail for CakePHP 2",
     "license": "MIT",
     "authors": [
@@ -14,7 +14,7 @@
         "source": "https://github.com/fawno/FawnoEmail"
     },
     "require": {
-        "cakephp/cakephp": "1.0.0"
+        "cakephp/cakephp": "2.0.0"
     },
     "extra": {
         "installer-name": "Fawno"
