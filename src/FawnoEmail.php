@@ -1,7 +1,9 @@
 <?php
-	App::uses('CakeEmail', 'Network/Email');
+  namespace Fawno\FawnoEmail;
 
-	class FawnoEmail extends CakeEmail {
+	\App::uses('CakeEmail', 'Network/Email');
+
+	class FawnoEmail extends \CakeEmail {
 		protected function _renderTemplates ($content) {
 			if (!empty($this->_subject) && empty($this->_viewVars['subject'])) {
 				$this->_viewVars['subject'] = $this->_subject;
