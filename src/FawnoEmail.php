@@ -1,22 +1,22 @@
 <?php
 	namespace Fawno\Mailer;
 
-	use Cake\Mailer\Email;
+	use Cake\Mailer\Mailer;
+	use InvalidArgumentException;
 
-	class FawnoEmail extends Email {
-		protected function _renderTemplates ($content) {
-			if (!empty($this->_subject) && empty($this->_viewVars['subject'])) {
-				$this->_viewVars['subject'] = $this->_subject;
-			}
+	class FawnoEmail extends Mailer {
+		public function render(string $content = '') {
+			parent::render($content);
 
-			$rendered = parent::_renderTemplates($content);
-
-			if (!empty($rendered['html'])) {
-				preg_match_all('~<img[^>]*src\s*=\s*(["\'])(cid://|file://|cid:|file:)([^\1]+)\1~iU', serialize($this->viewVars), $userFiles);
+			$html = $this->message->getBodyHtml();
+			if (!empty($html)) {
+				$viewVars = $this->getRenderer()->viewBuilder()->getVars();
+				preg_match_all('~<img[^>]*src\s*=\s*(["\'])(cid://|file://|cid:|file:)([^\1]+)\1~iU', serialize($viewVars), $userFiles);
 				$userFiles = array_unique($userFiles[3]);
-				preg_match_all('~<img[^>]*src\s*=\s*(["\'])(cid://|file://|cid:|file:)([^\1]+)\1~iU', $rendered['html'], $embebFiles);
+				preg_match_all('~<img[^>]*src\s*=\s*(["\'])(cid://|file://|cid:|file:)([^\1]+)\1~iU', $html, $embebFiles);
 				$embebFiles = array_unique($embebFiles[3]);
 				$embebFiles = array_diff($embebFiles, $userFiles);
+
 				foreach ($embebFiles as $file) {
 					if (is_file($file)) {
 						$cid = sha1($file);
@@ -25,14 +25,16 @@
 						$cids['cid:' . $cid] = '\1\2cid:' . $cid . '\2';
 					}
 				}
+
 				if (!empty($images)) {
 					$this->addAttachments($images);
-					$rendered['html'] = preg_replace($files, $cids, $rendered['html']);
+					$html = preg_replace($files, $cids, $html);
+					$this->message->setBodyHtml($html);
 				}
 			}
 
-			return $rendered;
-		}
+      return $this;
+    }
 
 		public function attachments ($attachments = null) {
 			if ($attachments === null) {
@@ -74,4 +76,3 @@
 			return $this;
 		}
 	}
-?>
