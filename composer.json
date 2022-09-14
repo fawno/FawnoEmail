@@ -1,6 +1,5 @@
 {
     "name": "fawno/fawnoemail",
-    "version": "3.0.6",
     "description": "FawnoEmail for CakePHP 3",
     "license": "MIT",
     "authors": [
@@ -14,7 +13,7 @@
         "source": "https://github.com/fawno/FawnoEmail"
     },
     "require": {
-        "cakephp/cakephp": ">=3.2.3"
+        "cakephp/cakephp": ">=3.2.3 <4.4.0"
     },
     "autoload": {
         "psr-4": {
